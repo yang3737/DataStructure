@@ -8,53 +8,79 @@ import java.lang.ref.Reference;
 public class MergeSort {
 
     public static void main(String[] args) {
-        int[] a = {7,6,5,4,3,2,1};
-        mergeSort(a,7);
+        int[] a = {7, 6, 5, 4, 3, 2, 1};
+        mergeSort(a, 7);
         for (int i = 0; i < a.length; i++) {
             System.out.println(a[i]);
         }
     }
 
-    public static void mergeSort(int[] a, int n){
-        mergeSortInternally(a,0, n-1);
+    public static void mergeSort(int[] a, int n) {
+        mergeSortInternally(a, 0, n - 1);
     }
 
-    public static void mergeSortInternally(int a[],int p,int r){
-        if (p>=r) return;
-        int q = p+(r-p)/2;
-        mergeSortInternally(a,p,q);
-        mergeSortInternally(a,q+1,r);
-        merge(a,p,q,r);
+    public static void mergeSortInternally(int a[], int p, int r) {
+        if (p >= r) return;
+        int q = p + (r - p) / 2;
+        mergeSortInternally(a, p, q);
+        mergeSortInternally(a, q + 1, r);
+        mergeByBing(a, p, q, r);
     }
 
-    public static void merge(int[] a, int p, int q, int r){
+    public static void merge(int[] a, int p, int q, int r) {
         int i = p;
-        int j = q+1;
-        int[] temp = new int[r-p+1];
+        int j = q + 1;
+        int[] temp = new int[r - p + 1];
         int k = 0;
-        while (i<=q && j<=r){
-            if (a[i]<a[j]){
+        while (i <= q && j <= r) {
+            if (a[i] < a[j]) {
                 temp[k++] = a[i++];
-            }else {
+            } else {
                 temp[k++] = a[j++];
             }
         }
 
         int start = i;
         int end = q;
-        if (j<=r){
+        if (j <= r) {
             start = j;
             end = r;
         }
 //        while (start <= end) {
 //            temp[k++] = a[start++];
 //        }
-        for (int m = start;m<=end;m++){
+        for (int m = start; m <= end; m++) {
             temp[k++] = a[m];
         }
 
-        for (int n =0;n<r-p+1;n++){
-            a[p+n] = temp[n];
+        for (int n = 0; n < r - p + 1; n++) {
+            a[p + n] = temp[n];
+        }
+    }
+
+    public static void mergeByBing(int[] a, int p, int q, int r) {
+        int[] left = new int[q - p + 2];
+        int[] right = new int[r - q + 1];
+        for (int i = 0; i <= q - p; i++) {
+            left[i] = a[p + i];
+        }
+        for (int i = 0; i < r - q; i++) {
+            right[i] = a[q + 1 + i];
+        }
+        left[q - p + 1] = Integer.MAX_VALUE;
+        right[r - q] = Integer.MAX_VALUE;
+
+        int i = 0;
+        int j = 0;
+        int k = 0;
+
+        while (k <= (r - p)) {
+            if (left[i] < right[j]) {
+                a[p + k] = left[i++];
+            } else {
+                a[p + k] = right[j++];
+            }
+            k++;
         }
     }
 }
