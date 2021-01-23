@@ -1,99 +1,80 @@
 package cn.lcy.linkedlist;
 
+import java.awt.event.HierarchyBoundsAdapter;
+
 public class LRUBaseLinkList {
 
-    int cap = 100;
+    public Node head;
+    private int cap;
+    private int count;
 
-    int length = 0;
-
-    private Node head;
-
-    public Node findNodeByValue(int a) {
-        if (head == null) return null;
-        Node node = head;
-        while (node != null && node.data != a) {
-            node = node.next;
-        }
-        if (node == null) return null;
-        return node;
+    public LRUBaseLinkList(int cap) {
+        this.cap = cap;
     }
 
-    public Node findPreNodeByValue(int a) {
-        if (head == null) return null;
-        Node node = head;
-        if (node.data == a) return head;
-        while (node.next != null && node.next.data != a) {
-            node = node.next;
-        }
-        if (node.next == null) return null;
-        return node;
-    }
-
-    public boolean add(int a) {
-        if (length >= 100) {
-            delTail();
-        }
-        Node node = findPreNodeByValue(a);
-        if (node != null) {
-            delByPre(node);
-        }
-        Node q = new Node(a);
+    public int insertToHead(int val) {
+        Node node = new Node(val, null);
         if (head == null) {
-            head = q;
-            return true;
+            head = node;
+            count++;
+            return 1;
         }
-        q.next = head;
-        head = q ;
-        ++length;
-        return true;
+        if (head.data == val) {
+            return 1;
+        }
+        Node pre = findPreByVal(val);
+        if (pre != null) {
+            deleteByPre(pre);
+        }
+        if (count >= count) {
+            deleteTail();
+        }
+        node.next = head;
+        head = node;
+        count++;
+        return 1;
     }
 
-    public boolean delByPre(Node pre) {
-        if (pre.data == head.data && length == 1) {
-            head = null;
-            return true;
+    public Node findPreByVal(int val) {
+        if (head == null) return null;
+        Node p = head;
+        while (p.next != null && p.next.data != val) {
+            p = p.next;
         }
+        if (p.next == null) return null;
+        return p.next;
+    }
+
+    public void deleteByPre(Node pre) {
         pre.next = pre.next.next;
-        --length;
-        return true;
+        count--;
     }
 
-    public boolean delTail() {
+    public void deleteTail() {
+        if (head==null){
+            return;
+        }
         Node p = head;
-        while (p.next != null && p.next.next != null) {
+        if (p.next == null) {
+            head = null;
+        }
+        if (p.next.next != null) {
             p = p.next;
         }
-        p.next = null;
-        return true;
-    }
-
-    public void printList() {
-        Node p = head;
-        while (p != null) {
-            System.out.println(p.data);
-            p = p.next;
-        }
+        p.next = p.next.next;
+        count--;
     }
 
 
-    public static class Node {
-        int data;
-        Node next;
+    public class Node {
+        public int data;
+        public Node next;
 
-        public Node(int a) {
-            this.data = a;
+        public Node(int val, Node next) {
+            this.data = val;
+            this.next = next;
         }
 
-    }
-
-
-    public static void main(String[] args) {
-        LRUBaseLinkList lruBaseLinkedList = new LRUBaseLinkList();
-        lruBaseLinkedList.add(1);
-        lruBaseLinkedList.add(2);
-        lruBaseLinkedList.add(3);
-        lruBaseLinkedList.add(4);
-        lruBaseLinkedList.add(2);
-        lruBaseLinkedList.printList();
     }
 }
+

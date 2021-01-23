@@ -1,30 +1,36 @@
 package cn.lcy.queue;
 
 public class CycleQueue {
-    private int[] item;
-    private int tail = 0;
-    private int head = 0;
-    private int n;
 
+    private int[] item;
+
+    private int cap;
+
+    private int head;
+
+    private int tail;
 
     public CycleQueue(int cap) {
         item = new int[cap];
-        this.n = cap;
+        this.cap = cap;
     }
 
-    public boolean enqueue(int value) {
-        if ((tail + 1) % n == head) return false;
-        item[tail] = value;
-        tail = (tail + 1) % n;
+    public boolean enqueue(int val) throws Exception {
+        if ((tail + 1) % cap == head) {
+            throw new Exception("Queue is full");
+        }
+        item[tail] = val;
+        tail = (tail + 1) % cap;
         return true;
     }
 
-    public Integer dequeue() {
-        if (tail == head) return null;
-        int value = item[head];
-        head = (head + 1) % n;
-        return value;
+    public int dequeue() throws Exception {
+        if (tail == head) {
+            throw new Exception("Queue is empty");
+        }
+        int val = item[head];
+        head = (head + 1) % cap;
+        return val;
     }
-
 
 }
