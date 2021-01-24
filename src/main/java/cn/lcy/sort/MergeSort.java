@@ -1,5 +1,7 @@
 package cn.lcy.sort;
 
+import org.omg.PortableInterceptor.INACTIVE;
+
 import java.lang.ref.Reference;
 
 /**
@@ -20,11 +22,13 @@ public class MergeSort {
     }
 
     public static void mergeSortInternally(int a[], int p, int r) {
-        if (p >= r) return;
-        int q = p + (r - p) / 2;
-        mergeSortInternally(a, p, q);
-        mergeSortInternally(a, q + 1, r);
-        mergeByBing(a, p, q, r);
+        if (p < r) {
+            int q = p + (r - p) / 2;
+            mergeSortInternally(a, p, q);
+            mergeSortInternally(a, q + 1, r);
+            mergeByBing(a, p, q, r);
+        }
+
     }
 
     public static void merge(int[] a, int p, int q, int r) {
@@ -39,48 +43,44 @@ public class MergeSort {
                 temp[k++] = a[j++];
             }
         }
-
         int start = i;
         int end = q;
         if (j <= r) {
             start = j;
             end = r;
         }
-//        while (start <= end) {
-//            temp[k++] = a[start++];
-//        }
-        for (int m = start; m <= end; m++) {
-            temp[k++] = a[m];
+        while (start <= end) {
+            temp[k++] = a[start++];
         }
 
-        for (int n = 0; n < r - p + 1; n++) {
-            a[p + n] = temp[n];
+        for (int m = 0; m <= r - p; m++) {
+            a[p + m] = temp[m];
         }
+
+
     }
 
     public static void mergeByBing(int[] a, int p, int q, int r) {
-        int[] left = new int[q - p + 2];
-        int[] right = new int[r - q + 1];
-        for (int i = 0; i <= q - p; i++) {
-            left[i] = a[p + i];
+        int[] left = new int[q-p+2];
+        int[] right = new int[r-q+1];
+        for (int i = 0;i<=q-p;i++){
+            left[i] = a[p+i];
         }
-        for (int i = 0; i < r - q; i++) {
-            right[i] = a[q + 1 + i];
+        for (int i = 0;i<r-q;i++){
+            right[i] = a[q+1+i];
         }
-        left[q - p + 1] = Integer.MAX_VALUE;
-        right[r - q] = Integer.MAX_VALUE;
-
+        left[q-p+1] = Integer.MAX_VALUE;
+        right[r-q] = Integer.MAX_VALUE;
+        int k = p;
         int i = 0;
         int j = 0;
-        int k = 0;
-
-        while (k <= (r - p)) {
-            if (left[i] < right[j]) {
-                a[p + k] = left[i++];
+        while (k<=r){
+            if (left[i]<right[j]){
+                a[k++] = left[i++];
             } else {
-                a[p + k] = right[j++];
+                a[k++] = right[j++];
             }
-            k++;
         }
-    }
+
+     }
 }
