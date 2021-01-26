@@ -29,7 +29,7 @@ public class Sorts {
 
     }
 
-    public static void chooseSort(int[] a, int n) {
+    public static void insertSort(int[] a, int n) {
         for (int i = 1; i < n; i++) {
             int temp = a[i];
             int j = i - 1;
@@ -45,7 +45,7 @@ public class Sorts {
 
     }
 
-    public static void insertSort(int[] a, int n) {
+    public static void chooseSort(int[] a, int n) {
 
         for (int i = 0; i < n; i++) {
             int min = i;
