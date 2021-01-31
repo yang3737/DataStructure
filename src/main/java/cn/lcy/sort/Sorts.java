@@ -52,20 +52,21 @@ public class Sorts {
     }
 
     public static void chooseSort(int[] a, int n) {
-
-        for (int i = 0; i < n; i++) {
+        if (n<=1) return;
+        for (int i = 0; i < n;i++){
             int min = i;
-            int j = i + 1;
-            for (; j < n; j++) {
-                if (a[j] < a[min]) {
+            //待交换的元素
+            int temp = a[i];
+            //选择最小的元素
+            for (int j = i+1;j<n;j++){
+                if (a[j]<a[min]){
                     min = j;
                 }
             }
-            int temp = a[i];
+            //交换
             a[i] = a[min];
             a[min] = temp;
         }
-
     }
 
 }
