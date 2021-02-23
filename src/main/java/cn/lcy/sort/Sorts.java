@@ -3,17 +3,22 @@ package cn.lcy.sort;
 public class Sorts {
 
     public static void main(String[] args) {
-        int a[] = {5, 4, 3, 2, 1};
-        insertSort(a, 5);
+        int a[] = {1,2,3,5, 4};
+        sort(a, 5);
         for (int i : a) {
             System.out.println(i);
         }
     }
 
+    /**
+     * 冒泡排序
+     * @param a
+     * @param n
+     */
     public static void sort(int[] a, int n) {
         if (n <= 1) return;
-        boolean flag = false;
         for (int i = 0; i < n; i++) {
+            boolean flag = false;
             for (int j = 0; j < n - i - 1; j++) {
                 if (a[j] > a[j + 1]) {
                     int temp = a[j];
@@ -26,6 +31,11 @@ public class Sorts {
         }
     }
 
+    /**
+     * 插入排序
+     * @param a
+     * @param n
+     */
     public static void insertSort(int[] a, int n) {
         if (n <= 1) return;
         //分为两个序列，左序列为已经排好的序列，右序列的元素是待插入到左序列的
@@ -49,6 +59,11 @@ public class Sorts {
         }
     }
 
+    /**
+     * 选择排序
+     * @param a
+     * @param n
+     */
     public static void chooseSort(int[] a, int n) {
         if (n<=1) return;
         for (int i = 0; i < n;i++){
