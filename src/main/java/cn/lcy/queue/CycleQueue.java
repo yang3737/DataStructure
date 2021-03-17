@@ -15,21 +15,20 @@ public class CycleQueue {
         this.cap = cap;
     }
 
-    public boolean enqueue(int val) throws Exception {
+    public void enqueue(int val) throws Exception {
         if ((tail + 1) % cap == head) {
             throw new Exception("Queue is full");
         }
         item[tail] = val;
         tail = (tail + 1) % cap;
-        return true;
     }
 
     public int dequeue() throws Exception {
-        if (tail == head) {
+        if (head == tail){
             throw new Exception("Queue is empty");
         }
         int val = item[head];
-        head = (head + 1) % cap;
+        head = (head+1)%cap;
         return val;
     }
 

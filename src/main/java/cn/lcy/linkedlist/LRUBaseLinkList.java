@@ -1,7 +1,5 @@
 package cn.lcy.linkedlist;
 
-import java.awt.event.HierarchyBoundsAdapter;
-
 public class LRUBaseLinkList {
 
     public Node head;
@@ -51,7 +49,7 @@ public class LRUBaseLinkList {
     }
 
     public void deleteTail() {
-        if (head==null){
+        if (head == null) {
             return;
         }
         Node p = head;

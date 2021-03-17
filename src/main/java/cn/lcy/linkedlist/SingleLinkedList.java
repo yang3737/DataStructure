@@ -1,8 +1,6 @@
 package cn.lcy.linkedlist;
 
 
-import java.util.Map;
-
 public class SingleLinkedList {
 
     private static Node head;
