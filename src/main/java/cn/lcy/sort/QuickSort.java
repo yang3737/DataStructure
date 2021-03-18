@@ -13,11 +13,10 @@ public class QuickSort {
 
     //
     private static void quickSortInternally(int[] a, int p, int r) {
-        if (p < r) {
-            //快排原理，每次排序，取任意一个元素a[q]，分成左右两边两个序列，左边都比a[q]小，右边都比a[q]大
-            int q = partition(a, p, r);
-            quickSortInternally(a, r, q - 1);
-            quickSortInternally(a, q + 1, r);
+        if (p<r){
+            int q = partition(a,p,r);
+            quickSortInternally(a,p,q-1);
+            quickSortInternally(a,q+1,r);
         }
     }
 
